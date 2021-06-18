@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Header } from '../components/Header';
 import { MyTasksList } from '../components/MyTasksList';
@@ -12,6 +12,7 @@ interface Task {
 
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [taskValidationDone, settaskValidationDone] = useState(false); 
 
   function handleAddTask(newTaskTitle: string) {
     //TODO - add new task if it's not empty
@@ -29,12 +30,26 @@ export function Home() {
 
   function handleMarkTaskAsDone(id: number) {
     //TODO - mark a task como 'done' se exstir
-    tasks.map(item => {
+    // let taskItems = tasks;
+    // let validation = !taskValidationDone;
+
+    // taskItems.map(item => {
+    //   if(item.id === id){
+    //     item.done = !item.done;
+    //   }
+    //   return item;
+    // })
+    // setTasks(taskItems); //Atualiza o valor da task
+    // settaskValidationDone(validation);
+
+    setTasks(array => array.map(item => {
       if(item.id === id){
         item.done = !item.done;
       }
       return item;
-    })
+    }))
+
+    settaskValidationDone(el => !el)
   }
 
   function handleRemoveTask(id: number) {
@@ -43,7 +58,7 @@ export function Home() {
       skill => skill.id !== id
     ));
   }
-
+  
   return (
     <>
       <Header />

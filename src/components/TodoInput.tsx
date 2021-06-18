@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, Platform, StyleSheet, TextInput, TouchableOpacity, View, Text } from 'react-native';
 
 import checkIcon from '../assets/icons/Check.png';
 
@@ -13,17 +13,18 @@ export function TodoInput({ addTask }: TodoInputProps) {
   function handleAddNewTask(task: string) {
     //TODO - Call addTask and clean input value
     addTask(task);
-    setTask('');
+    setTask(elemento => '');
   }
 
   return (
     <View style={[styles.inputContainer, Platform.OS === 'ios' ? styles.inputIOSShadow : styles.inputAndroidShadow]}>
       <TextInput 
+        value={task} //vincular o estado com o textfield
         style={styles.input} 
         placeholder="Adicionar novo todo..."
         returnKeyType="send"
         //TODO - use value, onChangeText and onSubmitEditing props
-        onChangeText={setTask}
+        onChangeText={setTask} //escuta o modificador
         onSubmitEditing={() => handleAddNewTask(task)}
       />
       <TouchableOpacity
