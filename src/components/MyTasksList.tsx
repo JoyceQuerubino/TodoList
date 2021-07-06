@@ -1,10 +1,15 @@
 import React from 'react';
 import { FlatList, TouchableOpacity, View, Text, StyleSheet, FlatListProps } from 'react-native';
 
-function FlatListHeaderComponent() {
+
+type Props = {
+  darkTheme: boolean;
+}
+
+function FlatListHeaderComponent({darkTheme}: Props) {
   return (
     <View>
-      <Text style={styles.header}>Minhas tasks</Text>
+      <Text style={[styles.header, {color: darkTheme ? '#FFF' : '#3D3D4D'}]}>Minhas tasks</Text>
     </View>
   )
 }
@@ -55,13 +60,13 @@ export function MyTasksList({ tasks, onLongPress, onPress }: MyTasksListProps) {
           </TouchableOpacity>
         )
       }}
-      ListHeaderComponent={<FlatListHeaderComponent />}
+      ListHeaderComponent={<FlatListHeaderComponent darkTheme={false} />}
       ListHeaderComponentStyle={{
         marginBottom: 20
       }}
       style={{
         marginHorizontal: 24,
-        marginTop: 32
+        // marginTop: 32
       }}
     />
   )
@@ -69,7 +74,6 @@ export function MyTasksList({ tasks, onLongPress, onPress }: MyTasksListProps) {
 
 const styles = StyleSheet.create({
   header: {
-    color: '#3D3D4D',
     fontSize: 24,
     fontFamily: 'Poppins-SemiBold'
   },
@@ -100,6 +104,16 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     borderRadius: 4,
     backgroundColor: 'rgba(25, 61, 223, 0.1)',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  taskButtonDoneDark:{
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+    marginBottom: 4,
+    borderRadius: 4,
+    backgroundColor: 'rgba(rgba(65, 58, 111, 0.1)',
     flexDirection: 'row',
     alignItems: 'center'
   },

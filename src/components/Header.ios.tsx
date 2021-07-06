@@ -5,8 +5,8 @@ export function Header() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>to.</Text>
-        <Text style={[styles.headerText, { fontFamily: 'Poppins-SemiBold' }]}>do</Text>
+        <Text style={styles.headerText}>Lista de </Text>
+        <Text style={[styles.headerText, { fontFamily: 'Poppins-SemiBold' }]}>Tarefas</Text>
       </View>
     </SafeAreaView>
   )

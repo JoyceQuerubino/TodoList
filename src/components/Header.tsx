@@ -1,9 +1,13 @@
 import React from 'react';
-import { View, Text, StatusBar, StyleSheet } from 'react-native';
+import { View, Text, StatusBar, StyleSheet, ViewPropTypes } from 'react-native';
 
-export function Header() {
+type Props = {
+  darkTheme: boolean;
+}
+
+export function Header({darkTheme}: Props ) {
   return (
-    <View style={styles.header}>
+    <View style={[styles.header, {backgroundColor: darkTheme ? '#282B5A' : '#273FAD'}]}>
       <Text style={styles.headerText}>to.</Text>
       <Text style={[styles.headerText, { fontFamily: 'Poppins-SemiBold' }]}>do</Text>
     </View>
@@ -23,5 +27,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#FFF',
     fontFamily: 'Poppins-Regular',
+  }, 
+  nightMode:{
+    backgroundColor: '#282B5A', 
+    paddingTop: StatusBar.currentHeight,
+    paddingBottom: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row'
+
   }
 });

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Image, Platform, StyleSheet, TextInput, TouchableOpacity, View, Text } from 'react-native';
+import { Image, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
 import checkIcon from '../assets/icons/Check.png';
 
 interface TodoInputProps {
   addTask: (task: string) => void;
+  darkTheme: boolean
 }
 
-export function TodoInput({ addTask }: TodoInputProps) {
+export function TodoInput({ addTask, darkTheme }: TodoInputProps) {
   const [task, setTask] = useState('');
 
   function handleAddNewTask(task: string) {
@@ -30,7 +31,7 @@ export function TodoInput({ addTask }: TodoInputProps) {
       <TouchableOpacity
         testID="add-new-task-button"
         activeOpacity={0.7}
-        style={styles.addButton}
+        style={[styles.addButton, {backgroundColor: darkTheme ? '#9347CA' : '#3FAD27'}]}
         //TODO - onPress prop
         onPress={() => handleAddNewTask(task)}
       >
@@ -70,7 +71,6 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   addButton: {
-    backgroundColor: '#3FAD27',
     height: 50,
     paddingHorizontal: 16,
     justifyContent: 'center',

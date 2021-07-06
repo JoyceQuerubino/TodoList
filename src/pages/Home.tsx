@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Button, StyleSheet, View } from 'react-native'; 
+import { useColorScheme } from 'react-native';
 
 import { Header } from '../components/Header';
 import { MyTasksList } from '../components/MyTasksList';
@@ -13,6 +15,19 @@ interface Task {
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskValidationDone, settaskValidationDone] = useState(false); 
+
+  const [text, setText] = useState('Light');
+  const [nightMode, setNightMode] = useState(false);
+
+  function handleChangeMode(){
+    if(text === 'Light'){
+      setText('Dark')
+      setNightMode(true)
+    } else {
+      setText('Light')
+      setNightMode(false)
+    }
+  }
 
   function handleAddTask(newTaskTitle: string) {
     //TODO - add new task if it's not empty
@@ -29,18 +44,6 @@ export function Home() {
   }
 
   function handleMarkTaskAsDone(id: number) {
-    //TODO - mark a task como 'done' se exstir
-    // let taskItems = tasks;
-    // let validation = !taskValidationDone;
-
-    // taskItems.map(item => {
-    //   if(item.id === id){
-    //     item.done = !item.done;
-    //   }
-    //   return item;
-    // })
-    // setTasks(taskItems); //Atualiza o valor da task
-    // settaskValidationDone(validation);
 
     setTasks(array => array.map(item => {
       if(item.id === id){
@@ -60,16 +63,42 @@ export function Home() {
   }
   
   return (
-    <>
-      <Header />
+    < View style={[styles.container, {backgroundColor: nightMode ? '#191D3A' : '#F5F4F8'}]}>
+      <Header 
+        darkTheme={nightMode}
+      />
 
-      <TodoInput addTask={handleAddTask} />
+      <TodoInput 
+        addTask={handleAddTask} 
+        darkTheme={nightMode}
+      />
+      
+      <View style={styles.button}>
+        <Button 
+          color={nightMode ? "#9347CA" : "#273FAD"}
+          onPress={handleChangeMode}
+          title={text}
+        />
+      </View>
       
       <MyTasksList 
-        tasks={tasks} 
+        tasks={tasks}
         onPress={handleMarkTaskAsDone} 
         onLongPress={handleRemoveTask} 
       />
-    </>
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  }, 
+  button: { 
+    marginTop: 25, 
+    marginBottom: 20, 
+    marginHorizontal: 24,
+    width: 62, 
+    height: 32, 
+  },
+})
