@@ -1,13 +1,15 @@
-import React from 'react';
-import { View, Text, StatusBar, StyleSheet, ViewPropTypes } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StatusBar, StyleSheet } from 'react-native';
+import { ThemeContext } from '../pages/Home';
 
-type Props = {
-  darkTheme: boolean;
-}
 
-export function Header({darkTheme}: Props ) {
+
+
+export function Header() {
+  const nightMode = useContext(ThemeContext);
+
   return (
-    <View style={[styles.header, {backgroundColor: darkTheme ? '#282B5A' : '#273FAD'}]}>
+    <View style={[styles.header, {backgroundColor: nightMode ? '#282B5A' : '#273FAD'}]}>
       <Text style={styles.headerText}>to.</Text>
       <Text style={[styles.headerText, { fontFamily: 'Poppins-SemiBold' }]}>do</Text>
     </View>

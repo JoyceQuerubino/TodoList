@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Image, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { ThemeContext } from '../pages/Home';
+
 
 import checkIcon from '../assets/icons/Check.png';
 
 interface TodoInputProps {
   addTask: (task: string) => void;
-  darkTheme: boolean
 }
 
-export function TodoInput({ addTask, darkTheme }: TodoInputProps) {
+export function TodoInput({ addTask}: TodoInputProps) {
+
+  const nightMode = useContext(ThemeContext);
+
   const [task, setTask] = useState('');
 
   function handleAddNewTask(task: string) {
@@ -31,7 +35,7 @@ export function TodoInput({ addTask, darkTheme }: TodoInputProps) {
       <TouchableOpacity
         testID="add-new-task-button"
         activeOpacity={0.7}
-        style={[styles.addButton, {backgroundColor: darkTheme ? '#9347CA' : '#3FAD27'}]}
+        style={[styles.addButton, {backgroundColor: nightMode ? '#9347CA' : '#3FAD27'}]}
         //TODO - onPress prop
         onPress={() => handleAddNewTask(task)}
       >

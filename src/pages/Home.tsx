@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, createContext } from 'react';
 import { Button, StyleSheet, View } from 'react-native'; 
-import { useColorScheme } from 'react-native';
 
 import { Header } from '../components/Header';
 import { MyTasksList } from '../components/MyTasksList';
 import { TodoInput } from '../components/TodoInput';
+
+
+export const ThemeContext = createContext(false);
+
 
 interface Task {
   id: number;
@@ -63,30 +66,30 @@ export function Home() {
   }
   
   return (
-    < View style={[styles.container, {backgroundColor: nightMode ? '#191D3A' : '#F5F4F8'}]}>
-      <Header 
-        darkTheme={nightMode}
-      />
+    <ThemeContext.Provider value={nightMode}>
+      < View style={[styles.container, {backgroundColor: nightMode ? '#191D3A' : '#F5F4F8'}]}>
+        
+        <Header/>
 
-      <TodoInput 
-        addTask={handleAddTask} 
-        darkTheme={nightMode}
-      />
+        <TodoInput 
+          addTask={handleAddTask}
+        />
       
-      <View style={styles.button}>
-        <Button 
-          color={nightMode ? "#9347CA" : "#273FAD"}
-          onPress={handleChangeMode}
-          title={text}
+        <View style={styles.button}>
+          <Button 
+            color={nightMode ? "#9347CA" : "#273FAD"}
+            onPress={handleChangeMode}
+            title={text}
+          />
+        </View>
+      
+        <MyTasksList 
+          tasks={tasks}
+          onPress={handleMarkTaskAsDone} 
+          onLongPress={handleRemoveTask} 
         />
       </View>
-      
-      <MyTasksList 
-        tasks={tasks}
-        onPress={handleMarkTaskAsDone} 
-        onLongPress={handleRemoveTask} 
-      />
-    </View>
+    </ThemeContext.Provider>
   )
 }
 
