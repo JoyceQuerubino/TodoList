@@ -1,5 +1,5 @@
 import React, { useState, createContext } from 'react';
-import { Button, StyleSheet, View } from 'react-native'; 
+import { Button, StyleSheet, View, Alert, Text } from 'react-native'; 
 
 import { Header } from '../components/Header';
 import { MyTasksList } from '../components/MyTasksList';
@@ -22,6 +22,8 @@ export function Home() {
   const [text, setText] = useState('Light');
   const [nightMode, setNightMode] = useState(false);
 
+  const [count, setCount] = useState(0); 
+
   function handleChangeMode(){
     if(text === 'Light'){
       setText('Dark')
@@ -43,6 +45,7 @@ export function Home() {
       }
 
       setTasks(oldState => [ ...oldState, task ]);
+      setCount(count + 1)
     }
   }
 
@@ -60,9 +63,25 @@ export function Home() {
 
   function handleRemoveTask(id: number) {
     //TODO - remove task from state
-    setTasks(oldSkill => oldSkill.filter(
-      skill => skill.id !== id
-    ));
+    Alert.alert(
+      "Deletar task", 
+      "Tem certeza que deseja deletar essa task?", 
+      [
+        {
+          text: "Não", 
+          style: "cancel", 
+        }, 
+        {
+          text: "Sim", 
+          onPress: () => {
+            setTasks(oldSkill => oldSkill.filter(
+              skill => skill.id !== id
+            ));
+            setCount(count -1)
+          }
+        }
+      ]
+    )   
   }
   
   return (
@@ -74,19 +93,29 @@ export function Home() {
         <TodoInput 
           addTask={handleAddTask}
         />
+
+        <View style={styles.content}>
+          <View style={styles.button}>
+            <Button 
+              color={nightMode ? "#9347CA" : "#273FAD"}
+              onPress={handleChangeMode}
+              title={text}
+            />
+          </View>
+          <Text style={[
+            styles.countText,
+            {color: nightMode ? '#9347CA' : '#273FAD'}
+
+            ]}
+          >
+            Total de tarefas: {count}</Text>
       
-        <View style={styles.button}>
-          <Button 
-            color={nightMode ? "#9347CA" : "#273FAD"}
-            onPress={handleChangeMode}
-            title={text}
-          />
         </View>
       
         <MyTasksList 
           tasks={tasks}
           onPress={handleMarkTaskAsDone} 
-          onLongPress={handleRemoveTask} 
+          onPressRemove={handleRemoveTask} 
         />
       </View>
     </ThemeContext.Provider>
@@ -97,11 +126,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   }, 
-  button: { 
+  content:{
     marginTop: 25, 
     marginBottom: 20, 
     marginHorizontal: 24,
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'flex-end', 
+  }, 
+  button: { 
     width: 62, 
     height: 32, 
+    fontFamily: 'Poppins-Regular',
   },
+  countText: {
+    fontSize: 16, 
+    fontFamily: 'Poppins-SemiBold',
+  }
 })
