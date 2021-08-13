@@ -26,7 +26,7 @@ export function TodoInput({ addTask}: TodoInputProps) {
       <TextInput 
         value={task} //vincular o estado com o textfield
         style={styles.input} 
-        placeholder="Adicionar novo todo..."
+        placeholder="Adicionar nova task..."
         returnKeyType="send"
         //TODO - use value, onChangeText and onSubmitEditing props
         onChangeText={setTask} //escuta o modificador
