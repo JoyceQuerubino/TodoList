@@ -38,6 +38,7 @@ As funcionalidades foram apresentadas na descrição do desafio, além do design
 
 <!--Funcionalidades do projeto-->
 
+
 ## ⚙️ Funcionalidades
 
 Além das funcionalidades pedidas no desafio, adicionei outras extras para desenvolver novas habilidades:
@@ -54,21 +55,13 @@ Além das funcionalidades pedidas no desafio, adicionei outras extras para desen
 ## Preview
 
 <h1 align="center">
-   <img src="/github/Proffy-Web.gif" alt="App to do preview" />
-</h1>
-
-<h1 align="center">
    <img src="/github/Proffy-Mobile.gif" alt="App to do telas" />
 </h1>
 
 <!--Layout session-->
 
 ## 🎨 Layout
-
-<p align="center">
-   <img src="/github/Conjunto-Mobile.png" alt="Proffy" />
-</p>
----
+![Conjunto-Mobile](https://user-images.githubusercontent.com/66806696/129463396-78b5fadd-8369-4c2c-b7a4-457d70f4d122.png)
 
 <!--Running session-->
 
